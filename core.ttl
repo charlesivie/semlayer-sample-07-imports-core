@@ -1,0 +1,25 @@
+# Scenario 07 — BASE ontology, imported by scenario 08.
+# Publish this FIRST (e.g. as animals-core@v1.0.0). Scenario 08 owl:imports it,
+# so 08's bundle closure will include these triples — including the rdfs:domain
+# axiom that makes 08's inference demo work. This repo is also valid on its own.
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix core: <https://example.org/animals-core#> .
+
+<https://example.org/animals-core> a owl:Ontology ;
+    rdfs:label "Animals core" .
+
+core:Animal a owl:Class ;
+    rdfs:label "Animal" .
+
+core:name a owl:DatatypeProperty ;
+    rdfs:label "name" .
+
+# A node with this property is an Animal — but only under rdfs inference. SHACL
+# target selection does not apply rdfs:domain on its own, so scenario 08's
+# unnamed-dog demo only trips when the closure (this file) is present AND
+# --inference rdfs is used.
+core:makesSound a owl:DatatypeProperty ;
+    rdfs:label "makes sound" ;
+    rdfs:domain core:Animal .

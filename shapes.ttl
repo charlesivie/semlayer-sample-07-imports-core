@@ -1,0 +1,17 @@
+# AnimalShape — lets you validate animals-core on its own too.
+# (Note: shapes are per-repo. Scenario 08 does NOT inherit this shape; it defines
+# its own. What 08 inherits from core via owl:imports is the TBox — the Animal
+# class and name property — into its closure.)
+
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <https://example.org/animals-core#> .
+
+core:AnimalShape a sh:NodeShape ;
+    sh:targetClass core:Animal ;
+    sh:property [
+        sh:path core:name ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "An Animal must have a name."
+    ] .
